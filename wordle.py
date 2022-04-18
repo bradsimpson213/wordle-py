@@ -5,8 +5,9 @@ import os
 
 
 class Wordle:
-    def __init__(self, logo):
+    def __init__(self, letters = 5,logo = logo):
         self._logo = logo
+        self._letters = letters
         self._words = self.get_all_words()
         self._game_word = self.chose_game_word()
         self._guess = ''
@@ -16,9 +17,9 @@ class Wordle:
         self.play_game()
     
     def get_all_words(self):
-        f = open("words-med.txt", "r")
+        f = open("words.txt", "r")
         words = [ x.rstrip() for x in f]
-        wordle_words = [ x for x in words if len(x) == 5 ]
+        wordle_words = [ x for x in words if len(x) == self._letters ]
         return wordle_words
 
     def chose_game_word(self):
@@ -29,8 +30,8 @@ class Wordle:
         bad_guess = True
         while bad_guess:
             user_guess = input("Guess a word: ").lower()
-            if len(user_guess) != 5:
-                print("Words must be 5 letters, try again!")
+            if len(user_guess) != self._letters:
+                print(f"Words must be {self._letters} letters, try again!")
                 continue
             elif user_guess in self._guesses:
                 print(f"You already guessed {user_guess}, try again!")
@@ -58,23 +59,38 @@ class Wordle:
     def update_display(self):
         os.system('clear')
         for word in self._guesses:
-            if len(word) > 1:
+            # if len(word) > 0:
+            #     display = []
+            #     for index, letter in enumerate(word):
+            #         if letter == self._game_word[index]:
+            #             display.append((Back.GREEN, letter.upper()))
+            #         elif letter in self._game_word and letter != self._game_word[index]:
+            #             display.append((Back.YELLOW, letter.upper()))
+            #         else:
+            #             display.append((Style.RESET_ALL, letter.upper()))
+            #     print(display[0][0] + display[0][1] + Style.RESET_ALL + ' ' + 
+            #             display[1][0] + display[1][1] + Style.RESET_ALL + ' ' + 
+            #             display[2][0] + display[2][1] + Style.RESET_ALL + ' ' + 
+            #             display[3][0] + display[3][1] + Style.RESET_ALL + ' ' + 
+            #             display[4][0] + display[4][1] + Style.RESET_ALL)
+            if len(word) > 0:
                 display = []
                 for index, letter in enumerate(word):
                     if letter == self._game_word[index]:
-                        display.append((Back.GREEN, letter.upper()))
+                        display.extend([Back.GREEN, letter.upper(), Style.RESET_ALL, ' ' ])
                     elif letter in self._game_word and letter != self._game_word[index]:
-                        display.append((Back.YELLOW, letter.upper()))
+                        display.extend([Back.YELLOW, letter.upper(), Style.RESET_ALL, ' '])
                     else:
-                        display.append((Style.RESET_ALL, letter.upper()))
-                print(display[0][0] + display[0][1] + Style.RESET_ALL + ' ' + 
-                        display[1][0] + display[1][1] + Style.RESET_ALL + ' ' + 
-                        display[2][0] + display[2][1] + Style.RESET_ALL + ' ' + 
-                        display[3][0] + display[3][1] + Style.RESET_ALL + ' ' + 
-                        display[4][0] + display[4][1] + Style.RESET_ALL)
+                        display.extend([Style.RESET_ALL, letter.upper(), Style.RESET_ALL, ' '])
+                for index, word in enumerate(display):
+                    if index == (len(display) - 1):
+                        print(word)
+                    else:
+                        print(word, end='')
+               
             else:
                 display = [ "_" for x in range(len(self._game_word))]
                 print(' '.join(display))
 
 
-Wordle(logo)
+Wordle(11)
