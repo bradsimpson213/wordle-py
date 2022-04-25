@@ -59,20 +59,6 @@ class Wordle:
     def update_display(self):
         os.system('clear')
         for word in self._guesses:
-            # if len(word) > 0:
-            #     display = []
-            #     for index, letter in enumerate(word):
-            #         if letter == self._game_word[index]:
-            #             display.append((Back.GREEN, letter.upper()))
-            #         elif letter in self._game_word and letter != self._game_word[index]:
-            #             display.append((Back.YELLOW, letter.upper()))
-            #         else:
-            #             display.append((Style.RESET_ALL, letter.upper()))
-            #     print(display[0][0] + display[0][1] + Style.RESET_ALL + ' ' + 
-            #             display[1][0] + display[1][1] + Style.RESET_ALL + ' ' + 
-            #             display[2][0] + display[2][1] + Style.RESET_ALL + ' ' + 
-            #             display[3][0] + display[3][1] + Style.RESET_ALL + ' ' + 
-            #             display[4][0] + display[4][1] + Style.RESET_ALL)
             if len(word) > 0:
                 display = []
                 for index, letter in enumerate(word):
@@ -93,4 +79,4 @@ class Wordle:
                 print(' '.join(display))
 
 
-Wordle(11)
+Wordle(5)
