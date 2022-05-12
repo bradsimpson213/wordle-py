@@ -12,7 +12,6 @@ class Wordle:
         self._game_word = self.chose_game_word()
         self._guess = ''
         self._guesses = [[] for x in range(6)]
-        self._game_playing = True 
         self._tries = 0
         self.play_game()
     
@@ -29,7 +28,7 @@ class Wordle:
     def guess(self):
         bad_guess = True
         while bad_guess:
-            user_guess = input("Guess a word: ").lower()
+            user_guess = input(f"Guess a {self._letters} letter word: ").lower()
             if len(user_guess) != self._letters:
                 print(f"Words must be {self._letters} letters, try again!")
                 continue
