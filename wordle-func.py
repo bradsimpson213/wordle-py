@@ -9,7 +9,7 @@ def get_word ():
     ''' reads the words file, strips away new lines,
     turns it to a list, then filters the list for 5 character 
     words and returns them '''
-    f = open("words-med.txt", "r")
+    f = open("words.txt", "r")
     words = [ x.rstrip() for x in f]
     wordle_words = [ x for x in words if len(x) == 5 ]
     word = random.choice(wordle_words)
